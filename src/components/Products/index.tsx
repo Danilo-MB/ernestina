@@ -1,6 +1,7 @@
 import React from 'react';
 import { Wrapper } from './styled';
 import Card from '../../commons/Card';
+import { useAuth } from '../../context/authContext';
 
 const productList = [
     {
@@ -25,7 +26,12 @@ const productList = [
     }
 ];
 
+
 const Products: React.FC = () => {
+
+    const authContext = useAuth();
+    console.log(authContext, "el authcontext")
+
     return (
         <Wrapper>
             {productList.map((product, index) => (
