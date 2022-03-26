@@ -15,8 +15,7 @@ export const LeftSection = styled.div`
     display: flex;
     flex-direction: column;
     width: 48%;
-    height: 150px;
-    background-color: blue;
+    background:rgba(205,206,255,0.5);
     align-items: center;
     padding: 10px;
 `;
@@ -29,4 +28,9 @@ export const RightSection = styled.div`
     background-color: red;
     align-items: center;
     padding: 10px;
+`;
+
+export const Header = styled.h3`
+    font-size: 18px;
+    font-weight: 500;
 `;
