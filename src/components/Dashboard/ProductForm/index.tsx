@@ -1,26 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { FormControl, InputLabel, Select, MenuItem, SelectChangeEvent, TextField } from '@mui/material';
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { getCategories } from '../../../services/categories';
+import { DocumentData } from 'firebase/firestore';
 
 const ProductForm: React.FC = () => {
 
     const [category, setCategory] = useState('')
+    const [categoriesList, setCategoriesList] = useState([]);
+
+    const getCategoriesList = async () => {
+        const fetchedCategories: DocumentData[] = [];
+        const categories = await getCategories();
+        categories.forEach(category => {
+            fetchedCategories.push(category.data())
+        })
+        //setCategoriesList(fetchedCategories);
+    };
+    console.log(categoriesList)
+
+    useEffect(() => {
+        getCategoriesList();
+    }, [])
+
 
     const handleChange = (event: SelectChangeEvent<string>) => {
         setCategory(event.target.value);
     };
 
-    const categoriesList = ['categoria 1', 'categoria 2', 'categoria 3'];
-
-    const db = getDatabase();
-    const starCountRef = ref(db, 'categories');
-
-    useEffect(() => {
-        onValue(starCountRef, (snapshot) => {
-            const data = snapshot.val();
-            console.log(data);
-        });
-    }, [])
 
     return (
         <FormControl fullWidth>
@@ -32,7 +38,7 @@ const ProductForm: React.FC = () => {
                 label="Age"
                 onChange={handleChange}
             >
-                {categoriesList.map((category, index) => (
+                {categoriesList?.map((category, index) => (
                     <MenuItem
                         key={index}
                         value={category}
@@ -42,15 +48,24 @@ const ProductForm: React.FC = () => {
                 ))}
             </Select>
             <div style={{ height: 30 }}></div>
-            <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+            <TextField
+                id="outlined-basic"
+                label="Nombre del producto"
+                variant="outlined"
+            />
             <div style={{ height: 30 }}></div>
             <TextField
                 id="outlined-multiline-flexible"
-                label="Multiline"
+                label="Descripción del producto"
                 multiline
                 maxRows={4}
             // value={value}
             // onChange={handleChange}
+            />
+            <TextField
+                id="outlined-basic"
+                label="Precio"
+                variant="outlined"
             />
         </FormControl>
     )

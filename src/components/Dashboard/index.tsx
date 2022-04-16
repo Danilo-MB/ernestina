@@ -1,6 +1,7 @@
 import React from 'react';
 import { Wrapper, LeftSection, RightSection, Header } from './styled';
 import ProductForm from './ProductForm';
+import { getCategories } from '../../services/categories';
 
 const Dashboard: React.FC = () => {
 
@@ -11,7 +12,7 @@ const Dashboard: React.FC = () => {
                 <ProductForm />
             </LeftSection>
             <RightSection>
-                Rigth Section
+                <Header>Hacer otra cosa</Header>
             </RightSection>
         </Wrapper>
     )

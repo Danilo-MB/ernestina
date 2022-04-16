@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
     margin: 40px;
     padding: 30px;
     background:rgba(205,206,255,0.1);
+    height: 600px;
 `;
 
 export const LeftSection = styled.div`
@@ -18,16 +19,17 @@ export const LeftSection = styled.div`
     background:rgba(205,206,255,0.5);
     align-items: center;
     padding: 10px;
+    height: 500px;
 `;
 
 export const RightSection = styled.div`
     display: flex;
     flex-direction: column;
     width: 48%;
-    height: 150px;
-    background-color: red;
+    background:rgba(205,206,255,0.5);
     align-items: center;
     padding: 10px;
+    height: 500px;
 `;
 
 export const Header = styled.h3`
