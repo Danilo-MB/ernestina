@@ -16,7 +16,7 @@ const Login: React.FC = () => {
     const navigation = useNavigate();
     const [authInProgress, setAuthInProgress] = useState<boolean>(false);
     const [user, setUser] = useState<User | null | undefined | {}>();
-    console.log(user, "user");
+    //console.log(user, "user");
 
     const signInWithGoogle = () => {
         setAuthInProgress(true);
@@ -28,7 +28,7 @@ const Login: React.FC = () => {
                 }
                 setUser(user);
                 setAuthInProgress(false);
-                console.log(response, "response del singin");
+                //console.log(response, "response del singin");
                 navigation('/admin/dashboard');
             })
             .catch(error => {

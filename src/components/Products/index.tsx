@@ -46,4 +46,5 @@ const Products: React.FC = () => {
         </Wrapper>
     )
 };
+
 export default Products;

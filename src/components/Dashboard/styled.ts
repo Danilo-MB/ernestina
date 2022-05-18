@@ -19,7 +19,7 @@ export const LeftSection = styled.div`
     background:rgba(205,206,255,0.5);
     align-items: center;
     padding: 10px;
-    height: 500px;
+    height: 550px;
 `;
 
 export const RightSection = styled.div`
@@ -29,7 +29,7 @@ export const RightSection = styled.div`
     background:rgba(205,206,255,0.5);
     align-items: center;
     padding: 10px;
-    height: 500px;
+    height: 550px;
 `;
 
 export const Header = styled.h3`

@@ -1,16 +1,14 @@
-import {
-    collection,
-    addDoc,
-    updateDoc,
-    onSnapshot,
-    deleteDoc,
-    doc,
-    getDoc,
-    getDocs,
-} from "firebase/firestore";
-import { db } from "../../firebase/firebaseConfig";
+import axios from "axios";
 
-const collectionName = "categories";
-export function getCategories() {
-    return getDocs(collection(db, collectionName))
+const path = `http://localhost:3001/categories`;
+
+export const getCategories = async () => {
+    try {
+        const response = await axios.get(path);
+        return response.data;
+    } catch (error) {
+        if (error) {
+            return error;
+        }
+    }
 }
