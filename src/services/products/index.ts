@@ -14,9 +14,19 @@ export const getProducts = async () => {
     }
 };
 
+export const getProduct = async (id: number) => {
+    try {
+        const response = await axios.get(`${path}/${id}`);
+        return response.data;
+    } catch (error) {
+        if (error) {
+            return error;
+        }
+    }
+};
+
 export const saveProduct = async (product: Product) => {
     try {
-        console.log("entro al servicio")
         await axios.post(path, product);
     } catch (error) {
         if (error) {
