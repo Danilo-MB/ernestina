@@ -7,9 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '../../../commons/Button';
-import { Product } from '../../../interfaces';
 
-const ProductsTable = ({ list }) => {
+const ProductsTable = ({ list, onEdit }) => {
 
     return (
         <TableContainer sx={{ backgroundColor: 'transparent' }} component={Paper}>
@@ -23,20 +22,20 @@ const ProductsTable = ({ list }) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {list.map((element: Product, index: number) => (
+                    {list.map((element: any, index: number) => (
                         <TableRow
                             key={index}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
-                                {element['product_title']}
+                                {element.product_title}
                             </TableCell>
-                            <TableCell align="right">{element['product_category']}</TableCell>
-                            <TableCell align="right">{element['product_description']}</TableCell>
+                            <TableCell align="right">{element.product_category}</TableCell>
+                            <TableCell align="right">{element.product_description}</TableCell>
                             <TableCell align="right">
                                 <Button
                                     children='Editar'
-                                    onClick={(element) => console.log(element['id'])}
+                                    onClick={() => onEdit(element.id)}
                                 />
                             </TableCell>
                         </TableRow>

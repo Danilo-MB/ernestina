@@ -3,11 +3,12 @@ import { Wrapper, LeftSection, RightSection, Header } from './styled';
 import ProductForm from './ProductForm';
 import ProductsTable from './ProductsTable';
 import { Product } from '../../interfaces';
-import { getProducts } from '../../services/products';
+import { getProducts, getProduct } from '../../services/products';
 
 const Dashboard: React.FC = () => {
 
     const [productList, setProductList] = useState([]);
+    const [editingProduct, setEditingProduct] = useState({});
 
     useEffect(() => {
         fetchProducts();
@@ -19,6 +20,12 @@ const Dashboard: React.FC = () => {
         return data;
     };
     //console.log(productList)
+    //console.log(editingProduct, "producto a editar")
+    const getEditProduct = async (id: number): Promise<Product> => {
+        const data = await getProduct(id);
+        setEditingProduct(data[0]);
+        return data;
+    }
     return (
         <Wrapper>
             <LeftSection>
@@ -29,7 +36,7 @@ const Dashboard: React.FC = () => {
                 <Header>Editar un Producto</Header>
                 <ProductsTable
                     list={productList}
-                // onClick={() => console.log('click')}
+                    onEdit={(id: number) => getEditProduct(id)}
                 />
             </RightSection>
         </Wrapper>
