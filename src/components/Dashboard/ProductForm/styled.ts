@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 export const ButtonWrapper = styled.div`
     display: flex;
+    flex-direction: row;
     margin-top: 30px;
     width: 100%;
-    justify-content: center;
+    justify-content: space-around;
 `;
 
 export const FieldsSeparator = styled.div`

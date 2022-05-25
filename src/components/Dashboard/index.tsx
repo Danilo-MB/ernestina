@@ -3,12 +3,12 @@ import { Wrapper, LeftSection, RightSection, Header } from './styled';
 import ProductForm from './ProductForm';
 import ProductsTable from './ProductsTable';
 import { Product } from '../../interfaces';
-import { getProducts, getProduct } from '../../services/products';
+import { getProducts, getProduct, deleteProduct, updateProduct } from '../../services/products';
 
 const Dashboard: React.FC = () => {
 
     const [productList, setProductList] = useState([]);
-    const [editingProduct, setEditingProduct] = useState({});
+    const [editingProduct, setEditingProduct] = useState(null);
 
     useEffect(() => {
         fetchProducts();
@@ -19,21 +19,34 @@ const Dashboard: React.FC = () => {
         setProductList(data);
         return data;
     };
-    //console.log(productList)
-    //console.log(editingProduct, "producto a editar")
+
     const getEditProduct = async (id: number): Promise<Product> => {
         const data = await getProduct(id);
         setEditingProduct(data[0]);
         return data;
-    }
+    };
+
+    const deleteSelectedProduct = async (id: number) => {
+        await deleteProduct(id);
+        alert("El producto se ha eliminado");
+        setEditingProduct(null);
+        fetchProducts();
+    };
+
     return (
         <Wrapper>
             <LeftSection>
-                <Header>Crear un producto</Header>
-                <ProductForm />
+                <Header>Administrar Producto</Header>
+                <ProductForm
+                    values={editingProduct}
+                    onCleanForm={() => setEditingProduct(null)}
+                    onDelete={() => deleteSelectedProduct(editingProduct[0].id)}
+                    onUpdateList={() => fetchProducts()}
+                    onUpdate={() => setEditingProduct(null)}
+                />
             </LeftSection>
             <RightSection>
-                <Header>Editar un Producto</Header>
+                <Header>Lista de Productos</Header>
                 <ProductsTable
                     list={productList}
                     onEdit={(id: number) => getEditProduct(id)}

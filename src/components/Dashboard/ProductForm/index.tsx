@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { ButtonWrapper, FieldsSeparator } from './styled';
 import { FormControl, InputLabel, Select, MenuItem, SelectChangeEvent, TextField } from '@mui/material';
 import { getCategories } from '../../../services/categories';
-import { saveProduct } from '../../../services/products';
+import { saveProduct, updateProduct } from '../../../services/products';
 import { Category } from '../../../interfaces';
 import ButtonForm from '../../../commons/ButtonForm';
 
-const ProductForm: React.FC = () => {
+const ProductForm = ({ values, onCleanForm, onDelete, onUpdate, onUpdateList }) => {
 
     const [categoriesList, setCategoriesList] = useState([]);
     const [form, setForm] = useState({
@@ -91,9 +91,46 @@ const ProductForm: React.FC = () => {
                 description: "",
                 imageUrl: "",
             });
+            onUpdateList();
         }
         return;
     };
+
+    const onUpdateProduct = (): void => {
+        if (!errors()) {
+            const updatedProduct = form;
+            updateProduct(values[0].id, updatedProduct);
+            alert("El producto se ha actualizado exitosamente");
+            setForm({
+                category: "",
+                title: "",
+                description: "",
+                imageUrl: "",
+            });
+            onUpdate();
+            onUpdateList();
+        }
+        return;
+    };
+
+    useEffect(() => {
+        if (values) {
+            setForm({
+                category: values[0].product_category,
+                title: values[0].product_title,
+                description: values[0].product_description,
+                imageUrl: values[0].product_imageUrl
+            });
+        }
+        else {
+            setForm({
+                category: "",
+                title: "",
+                description: "",
+                imageUrl: "",
+            });
+        }
+    }, [values]);
 
     return (
         <FormControl fullWidth>
@@ -150,11 +187,26 @@ const ProductForm: React.FC = () => {
             />
             <ButtonWrapper>
                 <ButtonForm
-                    onClick={onSubmit}
-                    children={"Guardar Producto"}
+                    onClick={() => values ? onUpdateProduct() : onSubmit()}
+                    children={values ? "Actualizar Producto" : "Crear Producto"}
                     color={"black"}
                     disabled={false}
                 />
+                {values &&
+                    <>
+                        <ButtonForm
+                            onClick={() => onDelete()}
+                            children={"Eliminar Producto"}
+                            color={"red"}
+                            disabled={false}
+                        />
+                        <ButtonForm
+                            onClick={onCleanForm}
+                            children={"Nuevo"}
+                            color={"green"}
+                            disabled={false}
+                        />
+                    </>}
             </ButtonWrapper>
 
         </FormControl >
